@@ -31,34 +31,34 @@
 # # CMD [ "nginx", "-g", "daemon off;" ]
 
 
-# Usar una versión más reciente de Node.js
+# 🔹 Etapa de construcción (Builder)
 FROM node:18-alpine AS builder
 
 # Definir directorio de trabajo
 WORKDIR /app
 
-# Copiar dependencias y paquetes de Angular
+# Copiar dependencias del proyecto
 COPY package*.json ./
 
 # Instalar dependencias sin conflictos
 RUN npm install --legacy-peer-deps
 
-# Copiar el código fuente del proyecto
+# Copiar el código fuente
 COPY . .
 
-# Si fix/timerHandle.d.ts no existe, evitar error
-COPY fix/timerHandle.d.ts /app/node_modules/rxjs/dist/types/internal/scheduler/ || true
+# Copiar fix/timerHandle.d.ts solo si existe
+RUN test -f fix/timerHandle.d.ts && cp fix/timerHandle.d.ts /app/node_modules/rxjs/dist/types/internal/scheduler/ || echo "Archivo no encontrado"
 
-# Construir la aplicación Angular (sin --prod)
+# Construir la aplicación Angular (sin --prod porque ya no se usa)
 RUN npm run build --configuration=production
 
-# Etapa de Nginx para servir la aplicación
+# 🔹 Etapa de despliegue (Nginx)
 FROM nginx:alpine
 
-# Copiar el contenido del build de Angular
+# Copiar la aplicación Angular construida desde la etapa builder
 COPY --from=builder /app/dist/angular-frontend /usr/share/nginx/html
 
-# Exponer el puerto 80
+# Exponer el puerto 80 para servir la aplicación
 EXPOSE 80
 
 # Comando por defecto de Nginx
