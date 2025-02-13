@@ -45,7 +45,7 @@ spec:
             mountPath: /var/lib/mysql
       volumes:
         - name: mysql-storage
-          empityDir: {}
+          emptyDir: {}
           # persistentVolumeClaim:
           #   claimName: mysql-pvc
 ---
@@ -141,4 +141,3 @@ spec:
     protocol: TCP
     targetPort: 80  
 
-    
