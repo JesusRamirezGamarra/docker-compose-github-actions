@@ -79,7 +79,7 @@ spec:
     spec:
       containers:
       - name: backend-container
-        image: Jesusramirezgamarra/backend-k8:latest
+        image: jesusramirezgamarra/backend-k8:latest
         env:
           - name: DB_HOST
             value: mysql-service
@@ -123,7 +123,7 @@ spec:
     spec:
       containers:
       - name: frontend-container
-        image: Jesusramirezgamarra/frontend-k8:latest
+        image: jesusramirezgamarra/frontend-k8:latest
         ports:
         - containerPort: 80
 ---
