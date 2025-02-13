@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
-  private apiUrl = 'http://146.190.199.169/api/users'
+  private apiUrl = 'http://146.190.199.28/api/users'
 
   constructor(private http: HttpClient) { }
 
