@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private apiUrl = 'http://localhost:3000/api/users'
+  private apiUrl = 'http://146.190.199.169/api/users'
 
   constructor(private http: HttpClient) { }
 
